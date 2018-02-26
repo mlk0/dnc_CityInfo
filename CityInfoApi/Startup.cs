@@ -36,13 +36,13 @@ namespace CityInfoApi
             app.UseMvc(
 
                 //sample for convention based routing that is not recommended
-                config => {
-                config.MapRoute(
-                    name : "Default",
-                    template : "{controller}/{action}/{id?}",
-                    defaults : new {controller="City", action="GetCities"}
-                    );
-                }
+                //config => {
+                //config.MapRoute(
+                //    name : "Default",
+                //    template : "{controller}/{action}/{id?}",
+                //    defaults : new {controller="City", action="GetCities"}
+                //    );
+                //}
             );
 
             //app.UseMvc(); //this one is using the ASP.NET Core MVC Middleware in the request pipelinee

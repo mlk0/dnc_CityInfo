@@ -6,6 +6,7 @@ namespace CityInfoApi
 {
     public class CityController : Controller
     {
+        [HttpGet("api/cities")]
         public JsonResult GetCities()
         {
             return new JsonResult(
@@ -16,7 +17,7 @@ namespace CityInfoApi
             );
         }
 
-
+        [HttpGet("api/places")]
         public JsonResult Places()
         {
             return new JsonResult(
