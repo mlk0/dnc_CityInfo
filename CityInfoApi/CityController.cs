@@ -4,9 +4,10 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace CityInfoApi
 {
+    [Route("app/city")]
     public class CityController : Controller
     {
-        [HttpGet("api/cities")]
+        //[HttpGet("api/cities")]
         public JsonResult GetCities()
         {
             return new JsonResult(
@@ -17,7 +18,7 @@ namespace CityInfoApi
             );
         }
 
-        [HttpGet("api/places")]
+        //[HttpGet("api/places")]
         public JsonResult Places()
         {
             return new JsonResult(
