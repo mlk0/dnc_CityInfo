@@ -4,10 +4,11 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace CityInfoApi
 {
-    [Route("app/city")]
+    [Route("api/city")]
     public class CityController : Controller
     {
         //[HttpGet("api/cities")]
+        [HttpGet("")]
         public JsonResult GetCities()
         {
             return new JsonResult(
@@ -18,14 +19,15 @@ namespace CityInfoApi
             );
         }
 
-        //[HttpGet("api/places")]
-        public JsonResult Places()
+        [HttpGet("{id}")]
+        public JsonResult GetCity(int id)
         {
             return new JsonResult(
-                new List<object>(){
-                new { id = 100 , name = "Skopje Millenium Cross"},
-                new { id = 200, name = "Oakville Downtown"}
-            }
+                new
+                {
+                    id = id,
+                    name = "The City"
+                }
             );
         }
 
