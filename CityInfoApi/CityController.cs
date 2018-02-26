@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CityInfoApi
@@ -24,13 +25,10 @@ namespace CityInfoApi
         [HttpGet("{id}")]
         public JsonResult GetCity(int id)
         {
-            return new JsonResult(
-                new
-                {
-                    id = id,
-                    name = "The City"
-                }
-            );
+            return
+                new JsonResult(
+                CitiesDataStore.Current.Cities.SingleOrDefault(c => c.Id == id)
+                );
         }
 
 
