@@ -15,12 +15,13 @@ namespace CityInfoApi
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddMvc();
+            services.AddMvc(); //this one is adding the ASP.NET Core MVC as middleware
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
+            //env.
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
@@ -30,7 +31,24 @@ namespace CityInfoApi
                 app.UseExceptionHandler();
             }
 
-            app.UseMvc();
+
+
+            app.UseMvc(
+
+                //sample for convention based routing that is not recommended
+                config => {
+                config.MapRoute(
+                    name : "Default",
+                    template : "{controller}/{action}/{id?}",
+                    defaults : new {controller="City", action="GetCities"}
+                    );
+                }
+            );
+
+            //app.UseMvc(); //this one is using the ASP.NET Core MVC Middleware in the request pipelinee
+
+
+
 
             //app.Run((context) =>
             //{
