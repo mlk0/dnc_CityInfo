@@ -32,7 +32,7 @@ namespace CityInfoApi
             }
 
 
-
+            app.UseStatusCodePages();
             app.UseMvc(
 
                 //sample for convention based routing that is not recommended
