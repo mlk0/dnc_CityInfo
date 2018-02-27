@@ -18,7 +18,7 @@ namespace CityInfoApi
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc() //this one is adding the ASP.NET Core MVC as middleware
-                    .AddMvcOptions(o=>o.OutputFormatters.Add(new XmlDataContractSerializerOutputFormatter()))
+                    .AddMvcOptions(o=>o.OutputFormatters.Add(new XmlDataContractSerializerOutputFormatter())) //the default response is JSON but when Accept : application/xml is used the response will be xml instad
                     .AddJsonOptions(o =>
                     {
                         if(o.SerializerSettings.ContractResolver != null)
