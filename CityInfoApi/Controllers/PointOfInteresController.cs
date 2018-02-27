@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using AutoMapper;
 using CityInfoApi.Model;
 using Microsoft.AspNetCore.Mvc;
 
@@ -8,8 +9,11 @@ namespace CityInfoApi.Controllers
     [Route("api/city")]
     public class PointOfInterestController : Controller
     {
-        public PointOfInterestController()
+        private IMapper _mapper;
+
+        public PointOfInterestController(IMapper mapper)
         {
+            this._mapper = mapper;
         }
 
         [HttpGet("{cityId}/pointofinterest")]
@@ -186,6 +190,48 @@ namespace CityInfoApi.Controllers
 
             return NoContent();
             
+        }
+
+
+        [HttpPut("{cityId}/pointofinterest2/{id}")]
+        public IActionResult UpdatePointOfInterest2(int cityId, int id, [FromBody] UpdatePointOfInterestDto pointOfInterest)
+        {
+            if (pointOfInterest == null)
+            {
+                return BadRequest();
+            }
+
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            var city = CitiesDataStore.Current.Cities.SingleOrDefault((c => c.Id == cityId));
+            if (city == null)
+            {
+                return NotFound();
+            }
+
+            var poi = city.PointsOfInterest.SingleOrDefault(pi => pi.Id == id);
+            if (poi == null)
+            {
+                return NotFound();
+            }
+
+            //poi.Name = pointOfInterest.Name;
+            //poi.Description = pointOfInterest.Description;
+
+            
+            //city.PointsOfInterest.Remove(poi);
+            //poi = this._mapper.Map<UpdatePointOfInterestDto, PointOfInterestDto>(pointOfInterest);
+            //poi.Id = id;
+            //city.PointsOfInterest.Add(poi);
+
+            _mapper.Map<UpdatePointOfInterestDto, PointOfInterestDto>(pointOfInterest, poi);
+         
+
+            return NoContent();
+
         }
 
     }
