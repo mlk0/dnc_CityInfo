@@ -35,6 +35,8 @@ namespace CityInfoApi.Controllers
                 return BadRequest();
             }
 
+           
+
             var city = CitiesDataStore.Current.Cities.SingleOrDefault(c => c.Id == cityId);
             if (city == null)
             {
@@ -55,6 +57,11 @@ namespace CityInfoApi.Controllers
         {
             if(pointOfInteres == null){
                 return BadRequest();
+            }
+
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
             }
 
             var city = CitiesDataStore.Current.Cities.SingleOrDefault(c => c.Id == cityId);
@@ -111,8 +118,7 @@ namespace CityInfoApi.Controllers
 
 
 
-            //return the 201 with the location header to the route that is associted with the name cityPointOfInteres
-            //return CreatedAtRoute("cityPointOfInteres", new { cityId = cityId, id = newPointOfInteres.Id }, newPointOfInteres);
+            //return the 201 with the location header set to any string, it can be jibberish as well
             return Created("blabla", newPointOfInteres);
         }
 
@@ -124,6 +130,9 @@ namespace CityInfoApi.Controllers
             {
                 return BadRequest();
             }
+
+
+
 
             var city = CitiesDataStore.Current.Cities.SingleOrDefault(c => c.Id == cityId);
             if (city == null)
@@ -145,8 +154,9 @@ namespace CityInfoApi.Controllers
 
 
 
-            //return the 201 with the location header to the route that is associted with the name cityPointOfInteres
-            //return CreatedAtRoute("cityPointOfInteres", new { cityId = cityId, id = newPointOfInteres.Id }, newPointOfInteres);
+            //return the 201 with the location header to the route associated with the controller action
+            //NOTE: this is not the best choice since the acton name may change in a refactoring and the reference here will be still pointing to the old controller action
+            //      for that reason, the best usage would be CreatedAtRoute that will reference the Name associated with the route which will not change with the refactoring
             return CreatedAtAction("GetPointOfInteres", new { cityId = cityId, id = newPointOfInteres.Id }, newPointOfInteres);
         }
 
