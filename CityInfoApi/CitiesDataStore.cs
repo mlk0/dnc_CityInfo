@@ -19,13 +19,13 @@ namespace CityInfoApi
                     Name = "Skopje",
                     Description = "Najubav na svet",
                     //NumberOfPointsOfInteres = 7
-                    PointsOfInteres = new List<PointOfInteresDto>(){
-                        new PointOfInteresDto(){
+                    PointsOfInterest = new List<PointOfInterestDto>(){
+                        new PointOfInterestDto(){
                             Id = 100,
                             Name = "Starata Turska Carsija",
                             Description = "Antique bazar / marketplace"
                         },
-                        new PointOfInteresDto(){
+                        new PointOfInterestDto(){
                             Id = 101, Name = "Milanium Cross", Description = "Marker of 2000 years of "
                         }
                     }
@@ -35,11 +35,11 @@ namespace CityInfoApi
                     Name = "Ohrid",
                     Description = "Nasakan na svet",
                     //NumberOfPointsOfInteres = 17,
-                    PointsOfInteres = new List<PointOfInteresDto>(){
-                        new PointOfInteresDto(){
+                    PointsOfInterest = new List<PointOfInterestDto>(){
+                        new PointOfInterestDto(){
                             Id = 102, Name = "Kaneo", Description = "Old Church by the Lake"
                         },
-                        new PointOfInteresDto(){
+                        new PointOfInterestDto(){
                             Id = 103, Name = "Plaosnik", Description = "Antique Church"
                         }
                     }
@@ -49,8 +49,8 @@ namespace CityInfoApi
                     Name = "Kocani",
                     Description = "Najvesel na svet",
                     //NumberOfPointsOfInteres = 12
-                    PointsOfInteres = new List<PointOfInteresDto>(){
-                        new PointOfInteresDto(){ Id = 104 , Name = "Kocansko Pole", Description = "Wide open area for fun activities"}
+                    PointsOfInterest = new List<PointOfInterestDto>(){
+                        new PointOfInterestDto(){ Id = 104 , Name = "Kocansko Pole", Description = "Wide open area for fun activities"}
                     }
                 }
             };

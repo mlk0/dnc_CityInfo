@@ -6,14 +6,14 @@ using Microsoft.AspNetCore.Mvc;
 namespace CityInfoApi.Controllers
 {
     [Route("api/city")]
-    public class PointOfInteresController : Controller
+    public class PointOfInterestController : Controller
     {
-        public PointOfInteresController()
+        public PointOfInterestController()
         {
         }
 
-        [HttpGet("{cityId}/pointofinteres")]
-        public IActionResult GetPointsOfInteresForCity(int cityId){
+        [HttpGet("{cityId}/pointofinterest")]
+        public IActionResult GetPointsOfInterestForCity(int cityId){
             if(cityId <=0){
                 return BadRequest();
             }
@@ -23,12 +23,12 @@ namespace CityInfoApi.Controllers
                 return NotFound();
             }
 
-            return Ok(city.PointsOfInteres);
+            return Ok(city.PointsOfInterest);
         }
 
 
-        [HttpGet("{cityId}/pointofinteres/{id}", Name = "cityPointOfInteres")]
-        public IActionResult GetPointOfInteres(int cityId, int id){
+        [HttpGet("{cityId}/pointofinterest/{id}", Name = "cityPointOfInterest")]
+        public IActionResult GetPointOfInterest(int cityId, int id){
 
             if (cityId <= 0)
             {
@@ -43,19 +43,19 @@ namespace CityInfoApi.Controllers
                 return NotFound();
             }
 
-            var pointOfInteres = city.PointsOfInteres.SingleOrDefault(poi => poi.Id == id);
-            if(pointOfInteres == null){
+            var pointOfInterest = city.PointsOfInterest.SingleOrDefault(poi => poi.Id == id);
+            if(pointOfInterest == null){
                 return NotFound();
             }
 
-            return Ok(pointOfInteres);
+            return Ok(pointOfInterest);
         }
 
 
-        [HttpPost("{cityId}/pointofinteres")]
-        public IActionResult CreatePointOfInteres(int cityId, [FromBody] CreatePointOfInteresDto pointOfInteres)
+        [HttpPost("{cityId}/pointofinterest")]
+        public IActionResult CreatePointOfInterest(int cityId, [FromBody] CreatePointOfInterestDto pointOfInterest)
         {
-            if(pointOfInteres == null){
+            if(pointOfInterest == null){
                 return BadRequest();
             }
 
@@ -69,31 +69,31 @@ namespace CityInfoApi.Controllers
                 return NotFound();
             }
 
-            int newPointIfInteresId = CitiesDataStore.Current.Cities.SelectMany(c => c.PointsOfInteres).Max(i => i.Id);
+            int newPointIfInterestId = CitiesDataStore.Current.Cities.SelectMany(c => c.PointsOfInterest).Max(i => i.Id);
 
-            var newPointOfInteres = new PointOfInteresDto()
+            var newPointOfInterest = new PointOfInterestDto()
             {
-                Id = ++newPointIfInteresId,
-                Name = pointOfInteres.Name,
-                Description = pointOfInteres.Description
+                Id = ++newPointIfInterestId,
+                Name = pointOfInterest.Name,
+                Description = pointOfInterest.Description
             };
 
 
-            city.PointsOfInteres.Add(newPointOfInteres);
+            city.PointsOfInterest.Add(newPointOfInterest);
 
 
 
-            //return the 201 with the location header to the route that is associted with the name cityPointOfInteres
-            return CreatedAtRoute("cityPointOfInteres", new { cityId = cityId, id = newPointOfInteres.Id }, newPointOfInteres);
+            //return the 201 with the location header to the route that is associted with the name cityPointOfInterest
+            return CreatedAtRoute("cityPointOfInterest", new { cityId = cityId, id = newPointOfInterest.Id }, newPointOfInterest);
 
         }
 
 
 
-        [HttpPost("{cityId}/pointofinteres1")]
-        public IActionResult CreatePointOfInteres1(int cityId, [FromBody] CreatePointOfInteresDto pointOfInteres)
+        [HttpPost("{cityId}/pointofinterest1")]
+        public IActionResult CreatePointOfInterest1(int cityId, [FromBody] CreatePointOfInterestDto pointOfInterest)
         {
-            if (pointOfInteres == null)
+            if (pointOfInterest == null)
             {
                 return BadRequest();
             }
@@ -104,29 +104,29 @@ namespace CityInfoApi.Controllers
                 return NotFound();
             }
 
-            int newPointIfInteresId = CitiesDataStore.Current.Cities.SelectMany(c => c.PointsOfInteres).Max(i => i.Id);
+            int newPointIfInterestId = CitiesDataStore.Current.Cities.SelectMany(c => c.PointsOfInterest).Max(i => i.Id);
 
-            var newPointOfInteres = new PointOfInteresDto()
+            var newPointOfInterest = new PointOfInterestDto()
             {
-                Id = ++newPointIfInteresId,
-                Name = pointOfInteres.Name,
-                Description = pointOfInteres.Description
+                Id = ++newPointIfInterestId,
+                Name = pointOfInterest.Name,
+                Description = pointOfInterest.Description
             };
 
 
-            city.PointsOfInteres.Add(newPointOfInteres);
+            city.PointsOfInterest.Add(newPointOfInterest);
 
 
 
             //return the 201 with the location header set to any string, it can be jibberish as well
-            return Created("blabla", newPointOfInteres);
+            return Created("blabla", newPointOfInterest);
         }
 
 
-        [HttpPost("{cityId}/pointofinteres2")]
-        public IActionResult CreatePointOfInteres2(int cityId, [FromBody] CreatePointOfInteresDto pointOfInteres)
+        [HttpPost("{cityId}/pointofinterest2")]
+        public IActionResult CreatePointOfInterest2(int cityId, [FromBody] CreatePointOfInterestDto pointOfInterest)
         {
-            if (pointOfInteres == null)
+            if (pointOfInterest == null)
             {
                 return BadRequest();
             }
@@ -140,26 +140,53 @@ namespace CityInfoApi.Controllers
                 return NotFound();
             }
 
-            int newPointIfInteresId = CitiesDataStore.Current.Cities.SelectMany(c => c.PointsOfInteres).Max(i => i.Id);
+            int newPointIfInterestId = CitiesDataStore.Current.Cities.SelectMany(c => c.PointsOfInterest).Max(i => i.Id);
 
-            var newPointOfInteres = new PointOfInteresDto()
+            var newPointOfInterest = new PointOfInterestDto()
             {
-                Id = ++newPointIfInteresId,
-                Name = pointOfInteres.Name,
-                Description = pointOfInteres.Description
+                Id = ++newPointIfInterestId,
+                Name = pointOfInterest.Name,
+                Description = pointOfInterest.Description
             };
 
 
-            city.PointsOfInteres.Add(newPointOfInteres);
+            city.PointsOfInterest.Add(newPointOfInterest);
 
 
 
             //return the 201 with the location header to the route associated with the controller action
             //NOTE: this is not the best choice since the acton name may change in a refactoring and the reference here will be still pointing to the old controller action
             //      for that reason, the best usage would be CreatedAtRoute that will reference the Name associated with the route which will not change with the refactoring
-            return CreatedAtAction("GetPointOfInteres", new { cityId = cityId, id = newPointOfInteres.Id }, newPointOfInteres);
+            return CreatedAtAction("GetPointOfInterest", new { cityId = cityId, id = newPointOfInterest.Id }, newPointOfInterest);
         }
 
+        [HttpPut("{cityId}/pointofinterest/{id}")]
+        public IActionResult UpdatePointOfInterest(int cityId, int id, [FromBody] UpdatePointOfInterestDto pointOfInterest)
+        {
+            if(pointOfInterest == null){
+                return BadRequest();
+            }
+
+            if(!ModelState.IsValid){
+                return BadRequest(ModelState);
+            }
+
+            var city = CitiesDataStore.Current.Cities.SingleOrDefault((c => c.Id == cityId));
+            if(city == null){
+                return NotFound();
+            }
+
+            var poi = CitiesDataStore.Current.Cities.SelectMany(pi => pi.PointsOfInterest).SingleOrDefault(p => p.Id == id);
+            if(poi == null){
+                return NotFound();
+            }
+
+            poi.Name = pointOfInterest.Name;
+            poi.Description = pointOfInterest.Description;
+
+            return NoContent();
+            
+        }
 
     }
 }

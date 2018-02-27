@@ -3,9 +3,10 @@ using System.ComponentModel.DataAnnotations;
 
 namespace CityInfoApi.Model
 {
-    public class CreatePointOfInterestDto
+    public class UpdatePointOfInterestDto
     {
-        
+         
+
         [Required(ErrorMessage = "Name is required")]
         [MaxLength(10, ErrorMessage = "Name should not be longer than 10 letters")]
         public string Name { get; set; }
