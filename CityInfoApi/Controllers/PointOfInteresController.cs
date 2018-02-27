@@ -81,5 +81,75 @@ namespace CityInfoApi.Controllers
 
         }
 
+
+
+        [HttpPost("{cityId}/pointofinteres1")]
+        public IActionResult CreatePointOfInteres1(int cityId, [FromBody] CreatePointOfInteresDto pointOfInteres)
+        {
+            if (pointOfInteres == null)
+            {
+                return BadRequest();
+            }
+
+            var city = CitiesDataStore.Current.Cities.SingleOrDefault(c => c.Id == cityId);
+            if (city == null)
+            {
+                return NotFound();
+            }
+
+            int newPointIfInteresId = CitiesDataStore.Current.Cities.SelectMany(c => c.PointsOfInteres).Max(i => i.Id);
+
+            var newPointOfInteres = new PointOfInteresDto()
+            {
+                Id = ++newPointIfInteresId,
+                Name = pointOfInteres.Name,
+                Description = pointOfInteres.Description
+            };
+
+
+            city.PointsOfInteres.Add(newPointOfInteres);
+
+
+
+            //return the 201 with the location header to the route that is associted with the name cityPointOfInteres
+            //return CreatedAtRoute("cityPointOfInteres", new { cityId = cityId, id = newPointOfInteres.Id }, newPointOfInteres);
+            return Created("blabla", newPointOfInteres);
+        }
+
+
+        [HttpPost("{cityId}/pointofinteres2")]
+        public IActionResult CreatePointOfInteres2(int cityId, [FromBody] CreatePointOfInteresDto pointOfInteres)
+        {
+            if (pointOfInteres == null)
+            {
+                return BadRequest();
+            }
+
+            var city = CitiesDataStore.Current.Cities.SingleOrDefault(c => c.Id == cityId);
+            if (city == null)
+            {
+                return NotFound();
+            }
+
+            int newPointIfInteresId = CitiesDataStore.Current.Cities.SelectMany(c => c.PointsOfInteres).Max(i => i.Id);
+
+            var newPointOfInteres = new PointOfInteresDto()
+            {
+                Id = ++newPointIfInteresId,
+                Name = pointOfInteres.Name,
+                Description = pointOfInteres.Description
+            };
+
+
+            city.PointsOfInteres.Add(newPointOfInteres);
+
+
+
+            //return the 201 with the location header to the route that is associted with the name cityPointOfInteres
+            //return CreatedAtRoute("cityPointOfInteres", new { cityId = cityId, id = newPointOfInteres.Id }, newPointOfInteres);
+            return CreatedAtAction("GetPointOfInteres", new { cityId = cityId, id = newPointOfInteres.Id }, newPointOfInteres);
+        }
+
+
     }
 }
