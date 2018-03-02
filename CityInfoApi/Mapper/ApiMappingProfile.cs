@@ -12,6 +12,18 @@ namespace CityInfoApi.Mapper
                 .ForMember(dest=>dest.Id, options=>options.Ignore())
 
             ;
+
+            CreateMap<PointOfInterestDto, UpdatePointOfInterestDto>();
+            //since id is is present only in the source but no in the destination
+            //there is no need to have any additonal statements 
+
+
+
+            CreateMap<UpdatePointOfInterestDto, PointOfInterestDto>()
+                .ForMember(dest=>dest.Id, options=>options.Ignore())
+            ;
+
+
         }
     }
 }
