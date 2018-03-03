@@ -17,11 +17,11 @@ namespace CityInfoApi
         public static int Main(string[] args)
         {
             Log.Logger = new LoggerConfiguration()
-            .MinimumLevel.Debug()
-            .MinimumLevel.Override("Microsoft", LogEventLevel.Information)
-            .Enrich.FromLogContext()
-            .WriteTo.Console()
-            .CreateLogger();
+                .MinimumLevel.Debug()
+                .MinimumLevel.Override("Microsoft", LogEventLevel.Information)
+                .Enrich.FromLogContext()
+                .WriteTo.Console()
+                .CreateLogger();
 
             try
             {
@@ -35,7 +35,8 @@ namespace CityInfoApi
                 Log.Fatal(ex, "host terminated unexpectadly");
                 return 1;
             }
-            finally{
+            finally
+            {
                 Log.CloseAndFlush();
             }
         }

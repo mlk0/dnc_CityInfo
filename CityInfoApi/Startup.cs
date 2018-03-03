@@ -46,7 +46,8 @@ namespace CityInfoApi
             }
 
 
-            app.UseStatusCodePages();
+            app.UseStatusCodePages();//in case of error to return the status code as content
+
             app.UseMvc(
 
                 //sample for convention based routing that is not recommended
