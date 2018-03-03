@@ -14,14 +14,30 @@ namespace CityInfoApi
 {
     public class Program
     {
+
+        public static IConfiguration Configuration { get; } = new ConfigurationBuilder()
+            .SetBasePath(Directory.GetCurrentDirectory())
+            .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
+            .AddJsonFile($"appsettings.{Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") ?? "Production"}.json", optional: true)
+            .AddEnvironmentVariables()
+            .Build();
+
         public static int Main(string[] args)
         {
             Log.Logger = new LoggerConfiguration()
-                .MinimumLevel.Debug()
-                .MinimumLevel.Override("Microsoft", LogEventLevel.Information)
+                .ReadFrom.Configuration(Configuration)
                 .Enrich.FromLogContext()
                 .WriteTo.Console()
                 .CreateLogger();
+
+
+            Log.Verbose("TEST LEVEL Verbose");
+            Log.Debug("TEST LEVEL Debug");
+            Log.Information("TEST LEVEL Information");
+            Log.Warning("TEST LEVEL Warning");
+            Log.Error("TEST LEVEL Error");
+            Log.Fatal("TEST LEVEL Fatal");
+
 
             try
             {
