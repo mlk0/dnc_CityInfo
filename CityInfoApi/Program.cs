@@ -15,7 +15,7 @@ namespace CityInfoApi
     public class Program
     {
 
-        public static IConfiguration Configuration { get; } = new ConfigurationBuilder()
+        public static IConfiguration AppConfiguration { get; } = new ConfigurationBuilder()
             .SetBasePath(Directory.GetCurrentDirectory())
             .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
             .AddJsonFile($"appsettings.{Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") ?? "Production"}.json", optional: true)
@@ -25,7 +25,7 @@ namespace CityInfoApi
         public static int Main(string[] args)
         {
             Log.Logger = new LoggerConfiguration()
-                .ReadFrom.Configuration(Configuration)
+                .ReadFrom.Configuration(AppConfiguration)
                 .Enrich.FromLogContext()
                 .WriteTo.Console()
                 .CreateLogger();
@@ -37,6 +37,10 @@ namespace CityInfoApi
             Log.Warning("TEST LEVEL Warning");
             Log.Error("TEST LEVEL Error");
             Log.Fatal("TEST LEVEL Fatal");
+
+
+            Log.Debug($"Current BasePath taken from the DirectoryCurrentDirectory : {Directory.GetCurrentDirectory()}");
+            Log.Debug($"Current BasePath taken from the Environment.CurrentDirectory : {Environment.CurrentDirectory}");
 
 
             try
