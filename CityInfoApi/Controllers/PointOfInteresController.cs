@@ -2,6 +2,7 @@
 using System.Linq;
 using AutoMapper;
 using CityInfoApi.Model;
+using CityInfoApi.Services;
 using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
@@ -13,11 +14,14 @@ namespace CityInfoApi.Controllers
     {
         private IMapper _mapper;
         private ILogger<PointOfInterestController> _logger;
+        private EmailService _emailService;
 
-        public PointOfInterestController(IMapper mapper, ILogger<PointOfInterestController> logger)
+        public PointOfInterestController(IMapper mapper, ILogger<PointOfInterestController> logger, EmailService emailService)
         {
 			this._mapper = mapper;
             this._logger = logger;
+            this._emailService = emailService;
+            _logger.LogInformation("PointOfInterestController");
         }
 
         [HttpGet("{cityId}/pointofinterest")]
@@ -329,7 +333,8 @@ namespace CityInfoApi.Controllers
             }
 
             city.PointsOfInterest.Remove(poi);
-            this._logger.LogInformation($"Deleted point of interes with id : {id} within the City with cityId : {cityId}");
+            this._logger.LogInformation($"Deleted point of interest with id : {id} within the City with cityId : {cityId}");
+            this._emailService.SendEmail();
             return NoContent();
 
 

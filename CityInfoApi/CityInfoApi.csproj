@@ -9,6 +9,7 @@
     <Folder Include="Controllers\" />
     <Folder Include="Model\" />
     <Folder Include="Mapper\" />
+    <Folder Include="Services\" />
   </ItemGroup>
 
   <ItemGroup>
