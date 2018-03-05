@@ -21,19 +21,21 @@ namespace CityInfoApi
         {
             services.AddAutoMapper();
             services.AddMvc() //this one is adding the ASP.NET Core MVC as middleware
-                    .AddMvcOptions(o=>o.OutputFormatters.Add(new XmlDataContractSerializerOutputFormatter())) //the default response is JSON but when Accept : application/xml is used the response will be xml instad
+                    .AddMvcOptions(o => o.OutputFormatters.Add(new XmlDataContractSerializerOutputFormatter())) //the default response is JSON but when Accept : application/xml is used the response will be xml instad
                     .AddJsonOptions(o =>
                     {
-                        if(o.SerializerSettings.ContractResolver != null)
+                        if (o.SerializerSettings.ContractResolver != null)
                         {
                             var contractResolver = o.SerializerSettings.ContractResolver as DefaultContractResolver;
                             contractResolver.NamingStrategy = null;
                         }
                     });
 
-
-            services.AddTransient<IEmailService,EmailService>();
-        
+#if DEBUG
+            services.AddTransient<IEmailService, EmailService>();
+#else
+            services.AddTransient<IEmailService, CloudEmailService>();
+#endif
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
