@@ -6,6 +6,8 @@ namespace CityInfoApi.Services
     public class EmailService : IEmailService
     {
         private ILogger<EmailService> _logger;
+        private string _fromEmail = "noreply@app.com";
+        private string _toEmail = "SomeDev@company.com";
 
         public EmailService(ILogger<EmailService> logger)
         {
@@ -13,7 +15,7 @@ namespace CityInfoApi.Services
         }
 
         public void SendEmail(){
-            _logger.LogInformation("Sending Email");
+            _logger.LogInformation($"Sending Email to : {_toEmail}, from : {_fromEmail}");
             
         }
     }
