@@ -11,6 +11,7 @@ using Microsoft.AspNetCore.Mvc.Formatters;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Newtonsoft.Json.Serialization;
+using Serilog;
 
 namespace CityInfoApi
 {
@@ -21,8 +22,20 @@ namespace CityInfoApi
         public Startup(IConfiguration config){
             Configuration = config;
 
-            var test = Configuration["MailSettings:fromEmail"];
-            Console.WriteLine(test);
+
+            Log.Logger = new LoggerConfiguration()
+                .ReadFrom.Configuration(Configuration)
+                .Enrich.FromLogContext()
+                .WriteTo.Console()
+                .CreateLogger();
+
+            Log.Verbose("TEST LEVEL Verbose");
+            Log.Debug("TEST LEVEL Debug");
+            Log.Information("TEST LEVEL Information");
+            Log.Warning("TEST LEVEL Warning");
+            Log.Error("TEST LEVEL Error");
+            Log.Fatal("TEST LEVEL Fatal");
+
         }
 
         // This method gets called by the runtime. Use this method to add services to the container.
