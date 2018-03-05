@@ -3,7 +3,7 @@ using Microsoft.Extensions.Logging;
 
 namespace CityInfoApi.Services
 {
-    public class EmailService
+    public class EmailService : IEmailService
     {
         private ILogger<EmailService> _logger;
 

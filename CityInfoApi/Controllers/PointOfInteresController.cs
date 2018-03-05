@@ -14,9 +14,9 @@ namespace CityInfoApi.Controllers
     {
         private IMapper _mapper;
         private ILogger<PointOfInterestController> _logger;
-        private EmailService _emailService;
+        private IEmailService _emailService;
 
-        public PointOfInterestController(IMapper mapper, ILogger<PointOfInterestController> logger, EmailService emailService)
+        public PointOfInterestController(IMapper mapper, ILogger<PointOfInterestController> logger, IEmailService emailService)
         {
 			this._mapper = mapper;
             this._logger = logger;

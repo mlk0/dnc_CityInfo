@@ -32,7 +32,7 @@ namespace CityInfoApi
                     });
 
 
-            services.AddTransient<EmailService>();
+            services.AddTransient<IEmailService,EmailService>();
         
         }
 
